@@ -5,32 +5,46 @@
 
   </head>
   <body>
-    <a-scene environment="preset: checkerboard; dressingAmount: 500">
+    <a-scene>
+      
         <a-camera position="0 1.5 6"></a-camera>
         <a-assets>
-          <a-asset-item id="tree" src="https://teprogramo.com/Edenred_Car.gltf"></a-asset-item>
+          <a-asset-item id="tree" src="./auto_edenred.gltf"></a-asset-item>
+          <img id="image1" src="./sello_estacion_certificada.png">
+          <img id="image2" src="./logo_fleet_versiones.png">
+          <img id="sky" src="./Fondo_Carro.jpg">
         </a-assets>
-        <a-entity gltf-model="#tree" rotation="0 0 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 10000" rotation="5" position:"0 0 -10"></a-entity>
-         <!-- Rectangle for "Thanks" -->
-         <a-entity id="thanks" geometry="primitive: plane; height: 1; width: 3"
-         material="color: blue" position="-3 2 2"
-         text="value: Thanks; color: white; align: center;">
-   <a-animation attribute="position" to="-3 2 2" direction="alternate" dur="1000" repeat="indefinite"></a-animation>
-</a-entity>
-
-<!-- Rectangle for "For" -->
-<a-entity id="for" geometry="primitive: plane; height: 1; width: 2.8"
-         material="color: green" position="0 2 2"
-         text="value: For; color: white; align: center;">
-   <a-animation attribute="position" to="0 0 0" direction="alternate" dur="1000" repeat="indefinite"></a-animation>
-</a-entity>
-
-<!-- Rectangle for "Visiting Us" -->
-<a-entity id="visiting-us" geometry="primitive: plane; height: 1; width: 3"
-         material="color: red" position="3 2 2"
-         text="value: Visiting Us; color: white; align: center;">
-   <a-animation attribute="position" to="3 2 2" direction="alternate" dur="1000" repeat="indefinite"></a-animation>
-</a-entity>
+        <a-entity gltf-model="#tree" scale=".03 .03 .03" position="0 0 -10" 
+        animation__move="property: position; to: 0 0 2; rotation: 0 10 10; dur: 5000; easing: linear; loop: false"
+                  event-set__1="_event: animationcomplete__move; _target: #image1; visible: true"
+                  event-set__2="_event: animationcomplete__move; _target: #image2; visible: true"></a-entity>
+        <a-image id="demo" src="#image1" position="1 2 4" rotation="0 0 0" visible="false"></a-image>
+        <a-image id="demo2" src="#image2"  position="-1 2 4" rotation="0 0 0" visible="false"></a-image>
+        <a-sky rotation="180 -90 100" src="#sky"></a-sky>
+          
     </a-scene>
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var scene = document.querySelector('a-scene');
+            if (scene.hasLoaded) {
+                addListeners();
+                console.log('aqui');
+            } else {
+              console.log('aca');
+                scene.addEventListener('loaded', addListeners);
+            }
+        });
+
+        function addListeners() {
+          console.log('addListeners');
+            setTimeout(() => {
+              document.getElementById('demo').setAttribute('visible', 'true')
+              document.getElementById('demo2').setAttribute('visible', 'true')
+            }, 5000)
+            
+            
+        }
+
+      </script>
   </body>
 </html>
