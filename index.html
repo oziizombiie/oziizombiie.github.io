@@ -2,49 +2,43 @@
   <head>
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
-
   </head>
   <body>
     <a-scene>
       
-        <a-camera position="0 1.5 6"></a-camera>
-        <a-assets>
-          <a-asset-item id="tree" src="./auto_edenred.gltf"></a-asset-item>
-          <img id="image1" src="./sello_estacion_certificada.png">
-          <img id="image2" src="./logo_fleet_versiones.png">
-          <img id="sky" src="./Fondo_Carro.jpg">
-        </a-assets>
-        <a-entity gltf-model="#tree" scale=".03 .03 .03" position="0 0 -10" 
-        animation__move="property: position; to: 0 0 2; rotation: 0 10 10; dur: 5000; easing: linear; loop: false"
-                  event-set__1="_event: animationcomplete__move; _target: #image1; visible: true"
-                  event-set__2="_event: animationcomplete__move; _target: #image2; visible: true"></a-entity>
-        <a-image id="demo" src="#image1" position="1 2 4" rotation="0 0 0" visible="false"></a-image>
-        <a-image id="demo2" src="#image2"  position="-1 2 4" rotation="0 0 0" visible="false"></a-image>
-        <a-sky rotation="180 -90 100" src="#sky"></a-sky>
-          
+      <a-camera position="0 1.6 6"></a-camera>
+      <a-light 
+      animation__shadow="property: position; from:0 -200 0; to:0 3 10; dur: 4200; delay:100; easing:linear;"  
+      type="spot" intensity="5" color="#FFF"  target="targetEntity"></a-light>
+      <a-assets>
+        <a-asset-item id="car" src="./Edenred_Car.gltf"></a-asset-item>
+        <a-asset-item id="signal" src="./holograma.gltf"></a-asset-item>
+        <img id="image1" src="./sello_estacion_certificada.png" />
+        <img id="image2" src="./logo_fleet_versiones.png" />
+        <img id="sky" src="./Fondo_Carro.png" />
+      </a-assets>
+
+      <a-entity
+        gltf-model="#car"
+        scale=".03 .03 .03"
+        position="0 0 -10"
+        animation__move="property: position; to: 0 -.5 2; rotation: 0 10 10; dur: 4000; easing: linear; loop: false"
+        animation__rotate="property: rotation; delay:3800; to: 0 360 0; dur: 6000; loop: true"
+      ></a-entity>
+
+      <a-entity
+        gltf-model="#signal"
+        scale=".03 .03 .03"
+        position="0 10 0"
+        rotation="0 0 -30"
+        animation__move="property: position; to: 0 5 -2; dur: 4000; easing: linear; loop: false"
+        animation__rotate="property: rotation; dir: alternate; delay: 4000; from: 0 0 -30; to: 0 0 30; easing: linear; dur: 3000; loop: true;"
+        >
+      ></a-entity>
+      
+      <a-sky rotation="
+      45 0 0" 
+      src="#sky"></a-sky>
     </a-scene>
-      <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var scene = document.querySelector('a-scene');
-            if (scene.hasLoaded) {
-                addListeners();
-                console.log('aqui');
-            } else {
-              console.log('aca');
-                scene.addEventListener('loaded', addListeners);
-            }
-        });
-
-        function addListeners() {
-          console.log('addListeners');
-            setTimeout(() => {
-              document.getElementById('demo').setAttribute('visible', 'true')
-              document.getElementById('demo2').setAttribute('visible', 'true')
-            }, 5000)
-            
-            
-        }
-
-      </script>
   </body>
 </html>
